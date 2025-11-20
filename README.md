@@ -6,7 +6,10 @@ A plain vanilla Javascript app to display the current Swatch Internet Time. This
 
 See it online at: https://kendawson.online/free/swatch/
 
+<img src="https://kendawson.online/img/swatch-time.jpg" width="500">
+
 ## Links:
 
-- [https://www.swatch.com/en-us/internet-time.html](About Swatch Internet Time)
-- [https://github.com/kendawson-online/swatch-preact](Preact version)
+- About Swatch Internet Time: https://www.swatch.com/en-us/internet-time.html 
+- Preact version on GitHub: https://github.com/kendawson-online/swatch-preact
+- Preact version demo: https://swatchtime.online
