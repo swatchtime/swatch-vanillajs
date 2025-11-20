@@ -1,4 +1,4 @@
-# Swatch Internet Time: Vanilla JS
+# Swatch Internet Time: Vanilla JS PWA
 
 version 0.1.0 
 
