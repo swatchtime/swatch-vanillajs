@@ -2,7 +2,7 @@
 
 version 0.1.0 
 
-A plain vanilla Javascript PWA app to display the current Swatch Internet Time. This is the "no frills" version that just displays the current .beat time with no additional features. 
+A plain vanilla Javascript PWA app to display the current Swatch Internet Time. This is the "no frills" version which just displays the current .beat time with no additional features. 
 
 ## Screenshot
 
@@ -10,7 +10,9 @@ A plain vanilla Javascript PWA app to display the current Swatch Internet Time. 
 
 ## About
 
-This version does have a service-worker and manifest and can be installed locally as a PWA (on supported devices). The primary Javascript function for generating the Swatch Internet Time is as follows:
+This version has a service-worker and manifest and can be installed locally as a PWA (on supported devices). 
+
+The primary Javascript function for generating the Swatch Internet Time is as follows:
 
 ```
 function getSwatchTime() {
