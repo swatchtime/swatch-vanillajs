@@ -8,13 +8,17 @@ function updateSwatchTime() {
 // Compute Swatch .beats using UTC + 1 (Biel / UTC+1)
 function getSwatchTime() {
   const d = new Date();
-  // seconds since UTC midnight
-  const utcSeconds = d.getUTCHours() * 3600 + d.getUTCMinutes() * 60 + d.getUTCSeconds();
-  // Biel (UTC+1) seconds since midnight — add 3600s and wrap
-  const bielSeconds = (utcSeconds + 3600 + 24 * 3600) % (24 * 3600);
-  // 1 beat = 86.4 seconds
-  const beats = String(Math.floor(bielSeconds / 86.4) % 1000).padStart(3, '0');
-  return `@${beats}`;
+  // seconds since UTC midnight including fractional milliseconds
+  const utcSeconds = d.getUTCHours() * 3600 + d.getUTCMinutes() * 60 + d.getUTCSeconds() + d.getUTCMilliseconds() / 1000;
+  // Biel (UTC+1) seconds since midnight — add 3600s and wrap into 0..86399.999
+  const bielSeconds = (utcSeconds + 3600) % 86400;
+  // 1 beat = 86.4 seconds (fractional beats allowed)
+  const beats = bielSeconds / 86.4;
+  // Format as two-decimal centibeats, ensuring integer portion is zero-padded to 3 digits
+  const sw = beats.toFixed(2); // e.g. "12.34" or "123.45"
+  const parts = sw.split('.');
+  parts[0] = String(parts[0]).padStart(3, '0');
+  return `@${parts.join('.')}`;
 }
 
 // Keep a reference to the interval so we can pause on visibility change
