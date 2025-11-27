@@ -12,13 +12,11 @@ function getSwatchTime() {
   const utcSeconds = d.getUTCHours() * 3600 + d.getUTCMinutes() * 60 + d.getUTCSeconds() + d.getUTCMilliseconds() / 1000;
   // Biel (UTC+1) seconds since midnight — add 3600s and wrap into 0..86399.999
   const bielSeconds = (utcSeconds + 3600) % 86400;
-  // 1 beat = 86.4 seconds (fractional beats allowed)
-  const beats = bielSeconds / 86.4;
-  // Format as two-decimal centibeats, ensuring integer portion is zero-padded to 3 digits
-  const sw = beats.toFixed(2); // e.g. "12.34" or "123.45"
-  const parts = sw.split('.');
-  parts[0] = String(parts[0]).padStart(3, '0');
-  return `@${parts.join('.')}`;
+  // 1 beat = 86.4 seconds. Show whole beats only (integer part), zero-padded to 3 digits.
+  let beatInteger = Math.floor(bielSeconds / 86.4) % 1000;
+  if (beatInteger < 0) beatInteger += 1000;
+  const padded = String(beatInteger).padStart(3, '0');
+  return `@${padded}`;
 }
 
 // Keep a reference to the interval so we can pause on visibility change
@@ -109,8 +107,8 @@ window.addEventListener('beforeinstallprompt', (event) => {
   deferredPrompt = event;
   const installBtn = document.getElementById('install-btn');
   if (installBtn) {
-    installBtn.style.display = 'inline-block';
-    installBtn.setAttribute('aria-hidden', 'false');
+    // Leave visibility/ARIA of the install button to the HTML/CSS defaults
+    // The element is visible by default in `index.html` so no JS toggle is needed.
   }
 });
 
@@ -121,10 +119,9 @@ function showInstallPrompt() {
     deferredPrompt.userChoice.then((choiceResult) => {
       console.log('Install prompt result:', choiceResult.outcome);
       deferredPrompt = null;
-      const installBtn = document.getElementById('install-btn');
-      if (installBtn) {
-        installBtn.style.display = 'none';
-      }
+      // Keep the install button/logo visible even after the prompt.
+      // We intentionally do not hide the install button so users can re-open the prompt
+      // or use the logo as a persistent affordance.
     });
   }
 }

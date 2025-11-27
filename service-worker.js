@@ -1,15 +1,15 @@
 // service-worker.js
 const cacheName = 'swatch-time-v1';
 const filesToCache = [
-  '/swatch/',
-  '/swatch/index.html',
-  '/swatch/swatch.css',
-  '/swatch/swatch.js',
-  '/swatch/swatchlogo.jpg',
-  '/swatch/apple-touch-icon.png',
-  '/swatch/favicon-32x32.png',
-  '/swatch/favicon-16x16.png',
-  '/swatch/site.webmanifest'
+  '/free/swatch/',
+  '/free/swatch/index.html',
+  '/free/swatch/swatch.css',
+  '/free/swatch/swatch.js',
+  '/free/swatch/beat-logo.jpg',
+  '/free/swatch/apple-touch-icon.png',
+  '/free/swatch/favicon-32x32.png',
+  '/free/swatch/favicon-16x16.png',
+  '/free/swatch/site.webmanifest'
 ];
 
 self.addEventListener('install', (event) => {

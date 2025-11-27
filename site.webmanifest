@@ -1,7 +1,7 @@
 {
-   "name": "Swatch Time",
+   "name": "Swatch Interent Time",
    "short_name": "Swatch Time",
-   "description": "A simple app to display Swatch Internet Time",
+   "description": "A Javascript app to display Swatch Internet Time",
    "icons": [
      {
        "src": "android-chrome-192x192.png",
@@ -17,5 +17,5 @@
    "theme_color": "#FFFFFF",
    "background_color": "#FFFFFF",
    "display": "standalone",
-   "start_url": "/swatch/"
+   "start_url": "/free/swatch/"
  }

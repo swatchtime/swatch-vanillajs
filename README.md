@@ -6,7 +6,9 @@ A plain vanilla Javascript PWA app to display the current Swatch Internet Time. 
 
 ## Screenshot
 
-<img src="https://kendawson.online/img/swatch-time.jpg" width="500">
+<img src="https://kendawson.online/img/swatch-time.jpg" width="441">
+
+Online example: https://kendawson.online/free/swatch/
 
 ## About
 
@@ -47,4 +49,4 @@ const beats = String(Math.floor(bielSeconds / 86.4) % 1000).padStart(3, '0');
 ### Links:
 
 - About Swatch Internet Time: https://www.swatch.com/en-us/internet-time.html 
-- Online example: https://kendawson.online/free/swatch/
+- Github: https://github.com/swatchtime
