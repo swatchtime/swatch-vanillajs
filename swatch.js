@@ -14,6 +14,8 @@ function getSwatchTime() {
   const bielSeconds = (utcSeconds + 3600) % 86400;
     const rawBeats = bielSeconds / 86.4;
     // Round to 2 decimals then wrap values >=1000 back to range to avoid transient 1000.00
+    // In this particular code we only use 3 digits (no centibeats) so this isn't relevant
+    // but, it does future-proof the code in case we ever enable display of centibeats.
     let rounded = Math.round(rawBeats * 100) / 100;
     if (rounded >= 1000) rounded = rounded - 1000;
     // 1 beat = 86.4 seconds. Use the rounded value for display
@@ -106,14 +108,10 @@ if ('serviceWorker' in navigator) {
 let deferredPrompt = null;
 
 window.addEventListener('beforeinstallprompt', (event) => {
-  // Prevent the mini-infobar from appearing on mobile; save the event to trigger later
+  // Prevent the mini-infobar from appearing on mobile and store the event
+  // so `showInstallPrompt()` can trigger it later.
   event.preventDefault();
   deferredPrompt = event;
-  const installBtn = document.getElementById('install-btn');
-  if (installBtn) {
-    // Leave visibility/ARIA of the install button to the HTML/CSS defaults
-    // The element is visible by default in `index.html` so no JS toggle is needed.
-  }
 });
 
 // Function to show the installation prompt
@@ -123,9 +121,6 @@ function showInstallPrompt() {
     deferredPrompt.userChoice.then((choiceResult) => {
       console.log('Install prompt result:', choiceResult.outcome);
       deferredPrompt = null;
-      // Keep the install button/logo visible even after the prompt.
-      // We intentionally do not hide the install button so users can re-open the prompt
-      // or use the logo as a persistent affordance.
     });
   }
 }
