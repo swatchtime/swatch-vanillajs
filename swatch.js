@@ -12,8 +12,12 @@ function getSwatchTime() {
   const utcSeconds = d.getUTCHours() * 3600 + d.getUTCMinutes() * 60 + d.getUTCSeconds() + d.getUTCMilliseconds() / 1000;
   // Biel (UTC+1) seconds since midnight — add 3600s and wrap into 0..86399.999
   const bielSeconds = (utcSeconds + 3600) % 86400;
-  // 1 beat = 86.4 seconds. Show whole beats only (integer part), zero-padded to 3 digits.
-  let beatInteger = Math.floor(bielSeconds / 86.4) % 1000;
+    const rawBeats = bielSeconds / 86.4;
+    // Round to 2 decimals then wrap values >=1000 back to range to avoid transient 1000.00
+    let rounded = Math.round(rawBeats * 100) / 100;
+    if (rounded >= 1000) rounded = rounded - 1000;
+    // 1 beat = 86.4 seconds. Use the rounded value for display
+    let beatInteger = Math.floor(rounded) % 1000;
   if (beatInteger < 0) beatInteger += 1000;
   const padded = String(beatInteger).padStart(3, '0');
   return `@${padded}`;

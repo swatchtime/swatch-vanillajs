@@ -40,6 +40,18 @@ The magic explained:
 const beats = String(Math.floor(bielSeconds / 86.4) % 1000).padStart(3, '0');
 ```
 
+## Note: Rounding and display (important)
+
+If you display centibeats (two decimals) be careful when rounding. A raw beat value like `999.995` can round to `1000.00` which is invalid for display — the correct display is `000.00`. To avoid a transient `1000.00` flash, round then wrap values >=1000 back into range before formatting:
+
+```js
+const rawBeats = bielSeconds / 86.4;
+let rounded = Math.round(rawBeats * 100) / 100;
+if (rounded >= 1000) rounded = rounded - 1000;
+const display = rounded.toFixed(2); // safe to show
+```
+
+
  - `bielSeconds` is the number of seconds since midnight in Biel time (UTC+1, no DST), computed from UTC time.
  - Divide by 86.4 to convert seconds to Swatch beats (86400 seconds/day => 1000 beats).
  - `Math.floor(...)` gives the integer beat number.
