@@ -25,6 +25,22 @@ function getSwatchTime() {
   return `@${padded}`;
 }
 
+// When running as an installed PWA, some platforms display both the
+// document.title and the OS/app name. Reduce the document title while
+// in standalone mode to avoid the duplicated text in the window.
+function isPWA() {
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
+    || window.navigator.standalone === true; // iOS
+}
+
+if (isPWA()) {
+  try {
+    document.title = 'Swatch Internet Time';
+  } catch (e) {
+    // ignore errors
+  }
+}
+
 // Keep a reference to the interval so we can pause on visibility change
 let swatchInterval = null;
 
